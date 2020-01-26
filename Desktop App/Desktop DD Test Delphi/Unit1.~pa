@@ -1,0 +1,336 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, jpeg, StdCtrls, Buttons, ComCtrls;
+
+type
+  TfrmMain = class(TForm)
+    btnHome: TSpeedButton;
+    Image1: TImage;
+    btnProjectListBack: TSpeedButton;
+    btnEmployeeListBack: TSpeedButton;
+    btnProjectMenuBack: TSpeedButton;
+    PageControl1: TPageControl;
+    ts: TTabSheet;
+    pnlProjectEmployee: TPanel;
+    lstProjectEmployee: TListBox;
+    pnlProjectMenu: TPanel;
+    btnProjectMenuMilestone: TButton;
+    btnProjectMenuEmployees: TButton;
+    pnlMain: TPanel;
+    btnViewAllProjects: TButton;
+    btnViewAllEmployees: TButton;
+    pnlProjectList: TPanel;
+    Label1: TLabel;
+    lstProjectList: TListBox;
+    pnlEmployeeList: TPanel;
+    Label2: TLabel;
+    lstEmployeeList: TListBox;
+    btnProjectEmployeeBack: TSpeedButton;
+    gbMilestoneInfo: TGroupBox;
+    GroupBox1: TGroupBox;
+    txtMilestoneName: TEdit;
+    GroupBox2: TGroupBox;
+    txtMilestoneDescription: TMemo;
+    btnMilestoneInfoOK: TButton;
+    btnMilestoneInfoCancel: TButton;
+    pnlGraph: TPanel;
+    btnGraphOK: TButton;
+    btnGraphCancel: TButton;
+    procedure FormDragDrop(Sender, Source: TObject; X, Y: Integer) ;
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer) ;
+    procedure FormDragOver(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean) ;
+    procedure btnViewAllProjectsClick(Sender: TObject);
+    procedure btnHomeClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure btnProjectListBackClick(Sender: TObject);
+    procedure btnViewAllEmployeesClick(Sender: TObject);
+    procedure btnEmployeeListBackClick(Sender: TObject);
+    procedure lstProjectListClick(Sender: TObject);
+    procedure btnProjectMenuBackClick(Sender: TObject);
+    procedure lstEmployeeListClick(Sender: TObject);
+    procedure btnProjectEmployeeBackClick(Sender: TObject);
+    procedure btnMilestoneInfoOKClick(Sender: TObject);
+    procedure btnMilestoneInfoCancelClick(Sender: TObject);
+    procedure lstProjectEmployeeClick(Sender: TObject);
+    procedure btnProjectMenuMilestoneClick(Sender: TObject);
+    procedure btnGraphOKClick(Sender: TObject);
+    procedure btnGraphCancelClick(Sender: TObject);
+   
+  
+
+  private
+    { Private declarations }
+    DEBUG : Boolean;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+
+implementation
+ 
+{$R *.DFM}
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+     DEBUG := true;
+     frmMain.pnlMain.Visible := true;
+     frmMain.pnlProjectList.Visible := false;
+     frmMain.pnlEmployeeList.Visible := false;
+     frmMain.pnlProjectMenu.Visible := false;
+     frmMain.pnlProjectEmployee.Hide;
+     frmMain.pnlGraph.Hide;
+     frmMain.gbMilestoneInfo.Hide;
+
+
+     frmMain.btnHome.Visible := true;
+     frmMain.btnProjectListBack.Hide;
+     frmMain.btnEmployeeListBack.Hide;
+     frmMain.btnProjectMenuBack.Hide;
+     frmMain.btnProjectEmployeeBack.Hide;
+
+
+     if (  DEBUG ) then
+     begin
+          frmMain.btnProjectListBack.ShowHint := true;
+          frmMain.btnEmployeeListBack.ShowHint := true;
+          frmMain.btnProjectMenuBack.ShowHint := true;
+          frmMain.btnProjectEmployeeBack.ShowHint := true;
+     end;
+end;
+
+procedure TfrmMain.FormDragDrop(Sender, Source: TObject; X, Y: Integer) ;
+begin
+   if Source is TImage then
+   begin
+     TImage(Source).Left := X;
+     TImage(Source).Top := Y;
+   end;
+end;
+
+ procedure TfrmMain.FormDragOver(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean) ;
+begin
+   Accept := (Source is TImage) ;
+end;
+
+
+ procedure TfrmMain.Image1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer) ;
+begin
+   if ssCtrl in Shift then Image1.BeginDrag(True) ;
+end;
+
+
+procedure TfrmMain.btnViewAllProjectsClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Projects';
+     ts.Caption := 'Projects';
+
+     // Hide the current panel
+     frmMain.pnlMain.Hide;
+
+     // Show the requested Back button
+     frmMain.btnProjectListBack.Show;
+
+     // Show the requested panel
+     frmMain.pnlProjectList.Show;
+end;
+
+procedure TfrmMain.btnHomeClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Manage';
+     ts.Caption := 'Manage';
+     
+     // Set Navigation Visibility
+     frmMain.btnHome.show;
+
+     // Hide all of the Back buttons
+     frmMain.btnEmployeeListBack.Hide;
+     frmMain.btnProjectListBack.Hide;
+     frmMain.btnProjectMenuBack.Hide;
+
+     // Hide all other panels
+     frmMain.pnlEmployeeList.Hide;
+     frmMain.pnlProjectList.Hide;
+     frmMain.pnlProjectMenu.Hide;
+
+     // Show the requested panel
+     frmMain.pnlMain.Show;
+end;
+
+
+procedure TfrmMain.btnProjectListBackClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Manage';
+     ts.Caption := 'Manage';
+
+     // Hide the current panel
+     frmMain.pnlProjectList.Hide;
+
+     // Hide the current Back button
+     frmMain.btnProjectListBack.Hide;
+
+     // Show the requested panel
+     frmMain.pnlMain.Show;
+
+end;
+
+procedure TfrmMain.btnViewAllEmployeesClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Employees';
+     ts.Caption := 'Employees';
+
+     // Hide the current panel
+     frmMain.pnlMain.Hide;
+
+     // Show the requested Back button
+     frmMain.btnEmployeeListBack.Show;
+
+     // Show the requested panel
+     frmMain.pnlEmployeeList.Show;
+end;
+
+procedure TfrmMain.btnEmployeeListBackClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Manage';
+     ts.Caption := 'Manage';
+
+     // Hide the current panel
+     frmMain.pnlEmployeeList.Hide;
+
+     // Hide the current Back button
+     frmMain.btnEmployeeListBack.Hide;
+
+     // Show the requested panel
+     frmMain.pnlMain.Show;
+end;
+
+procedure TfrmMain.lstProjectListClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Project Menu';
+     ts.Caption := 'Project Menu';
+
+     // Hide the current panel
+     frmMain.pnlProjectList.Hide;
+
+     // Hide the current Back button
+     frmMain.btnProjectListBack.Hide;
+
+     // Show the requested Back button
+     frmMain.btnProjectMenuBack.Show;
+
+     // Show the requested panel
+     frmMain.pnlProjectMenu.Show;
+          
+end;
+
+procedure TfrmMain.btnProjectMenuBackClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Project List';
+     ts.Caption := 'Project List';
+
+     // Hide the current panel
+     frmMain.pnlProjectMenu.Hide;
+
+     // Hide the current Back button
+     frmMain.btnProjectMenuBack.Hide;
+
+     // Show the requested Back button
+     frmMain.btnProjectListBack.Show;
+
+     // Show the requested panel
+     frmMain.pnlProjectList.Show;
+end;
+
+procedure TfrmMain.lstEmployeeListClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Employee Name';
+     ts.Caption := 'Employee Name';
+
+     // Hide the current panel
+     frmMain.pnlEmployeeList.Hide;
+
+     // Show the requested Back button
+     frmMain.btnProjectEmployeeBack.Show;
+
+     // Show the requested panel
+     frmMain.pnlProjectEmployee.Show;
+end;
+
+procedure TfrmMain.btnProjectEmployeeBackClick(Sender: TObject);
+begin
+     // Change the Caption
+     frmMain.Caption := 'Employee List';
+     ts.Caption := 'Employee List';
+
+     // Hide the current panel
+     frmMain.pnlProjectEmployee.Hide;
+
+     // Hide the current Back button
+     frmMain.btnProjectEmployeeBack.Hide;
+
+     // Show the requested Back button
+     frmMain.btnEmployeeListBack.Show;
+
+     // Show the requested panel
+     frmMain.pnlEmployeeList.Show;
+
+end;
+
+procedure TfrmMain.btnMilestoneInfoOKClick(Sender: TObject);
+begin
+     // Do some save routine
+
+     // Hide this group box
+     frmMain.gbMilestoneInfo.Hide;
+end;
+
+procedure TfrmMain.btnMilestoneInfoCancelClick(Sender: TObject);
+begin
+     // Discard the changes
+
+     // Hide this group box
+     frmMain.gbMilestoneInfo.Hide;
+end;
+
+procedure TfrmMain.lstProjectEmployeeClick(Sender: TObject);
+begin
+     frmMain.gbMilestoneInfo.Show;
+end;
+
+procedure TfrmMain.btnProjectMenuMilestoneClick(Sender: TObject);
+begin
+
+     // Show the requested panel
+     frmMain.pnlGraph.Show;
+end;
+
+procedure TfrmMain.btnGraphOKClick(Sender: TObject);
+begin
+     // Do some save routine
+     
+     // Hide this panel
+     pnlGraph.Hide;
+end;
+
+procedure TfrmMain.btnGraphCancelClick(Sender: TObject);
+begin
+     // Discard the changes
+
+     // Hide this panel
+     pnlGraph.Hide;
+end;
+
+end.

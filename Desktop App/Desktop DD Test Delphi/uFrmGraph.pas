@@ -1,0 +1,28 @@
+unit uFrmGraph;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Menus;
+
+type
+  TfrmGraph = class(TForm)
+    mnuGraph: TMainMenu;
+    mnuFile: TMenuItem;
+    mnuNewMilestone: TMenuItem;
+    mnuExit: TMenuItem;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmGraph: TfrmGraph;
+
+implementation
+
+{$R *.DFM}
+
+end.

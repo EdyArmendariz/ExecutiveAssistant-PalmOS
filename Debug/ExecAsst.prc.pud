@@ -1,0 +1,11 @@
+<?xml version="1.0"  encoding="utf-8" ?>
+
+<target>
+  <exe_files>
+    <file>C:\Program Files\PalmSource\Palm OS Developer Suite\workspace\ExecAsst_0.00\Debug\ExecAsst.prc</file>
+  </exe_files>
+  <sym_files>
+    <file>.\ExecAsst</file>
+  </sym_files>
+  <breakpoint_list/>
+</target>
